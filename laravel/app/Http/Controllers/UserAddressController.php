@@ -9,14 +9,25 @@ use Illuminate\Http\Request;
 
 class UserAddressController extends Controller
 {
+    protected $user;
+    protected $userAddress;
+
+    public function __construct(User $user, UserAddress $userAddress)
+    {
+        $this->user = $user;
+        $this->userAddress = $userAddress;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        //
+        $addresses = $this->user->find($user->id)->addresses;
+
+        return response()->json($addresses);
     }
 
     /**
