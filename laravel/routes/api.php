@@ -15,7 +15,6 @@ use App\Http\Controllers\UserController;
 |
 */
 //To Do: 
-//1. Users Routes
 Route::apiResource('users', UserController::class);
 
 //2. Address Routes
