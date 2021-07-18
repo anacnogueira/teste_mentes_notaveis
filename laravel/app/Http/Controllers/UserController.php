@@ -47,7 +47,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = $this->user->findOrFail($id);
+
+        return response()->json($user);     
     }
 
     /**
