@@ -83,8 +83,11 @@ class UserAddressController extends Controller
      * @param  \App\Models\UserAddress  $userAddress
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserAddress $userAddress)
+    public function destroy(User $user, $userAddress)
     {
-        //
+        $address = $this->userAddress->find($userAddress);
+        $address->delete();
+
+        return response()->json($address);
     }
 }
