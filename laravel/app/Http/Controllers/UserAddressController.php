@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserAddress;
+use App\Http\Requests\UserAddressRequest;
 
 use Illuminate\Http\Request;
 
@@ -36,9 +37,9 @@ class UserAddressController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(User $user, UserAddressRequest $request)
     {
-        //
+        echo 'Pode inserir endereço';
     }
 
     /**
