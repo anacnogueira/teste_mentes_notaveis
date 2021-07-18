@@ -39,7 +39,9 @@ class UserAddressController extends Controller
      */
     public function store(User $user, UserAddressRequest $request)
     {
-        echo 'Pode inserir endereço';
+        $address = $user->addresses()->create($request->all());
+ 
+        return response()->json($address);
     }
 
     /**
