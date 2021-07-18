@@ -7,6 +7,12 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    protected $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = $this->user->all();
+
+        return response()->json($users);
     }
 
     /**

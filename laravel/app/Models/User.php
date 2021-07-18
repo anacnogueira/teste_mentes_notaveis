@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-class User extends Authenticatable
-{
-    use HasFactory, Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
+class User extends Model
+{
     /**
      * The attributes that are mass assignable.
      *
