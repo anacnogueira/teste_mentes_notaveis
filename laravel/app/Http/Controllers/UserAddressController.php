@@ -50,9 +50,11 @@ class UserAddressController extends Controller
      * @param  \App\Models\UserAddress  $userAddress
      * @return \Illuminate\Http\Response
      */
-    public function show(UserAddress $userAddress)
+    public function show(User $user, $id)
     {
-        //
+        $address = $user->addresses()->find($id);
+
+        return response()->json($address);
     }
 
     /**
