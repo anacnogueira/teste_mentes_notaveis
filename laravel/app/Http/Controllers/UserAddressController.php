@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\UserAddress;
+
 use Illuminate\Http\Request;
 
 class UserAddressController extends Controller

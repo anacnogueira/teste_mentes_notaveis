@@ -15,4 +15,12 @@ class User extends Model
         'name',
         'email',
     ];
+
+    /**
+     * Get the address for the user.
+     */
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
 }

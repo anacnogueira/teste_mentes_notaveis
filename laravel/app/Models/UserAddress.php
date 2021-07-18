@@ -17,4 +17,9 @@ class UserAddress extends Model
         'state_id',
         'city_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
