@@ -64,10 +64,10 @@ class UserAddressController extends Controller
      * @param  \App\Models\UserAddress  $userAddress
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $user, $id)
+    public function update(UserAddressRequest $request, User $user, $userAddress)
     {
+        $address = $this->userAddress->find($userAddress);
         $input = $request->all();
-        $address = $user->addresses()->find($id);
         $address->name = $input['name'];
         $address->address = $input['address'];
         $address->state_id = $input['state_id'];
