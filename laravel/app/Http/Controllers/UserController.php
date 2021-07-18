@@ -34,10 +34,9 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        
-        $flight->name = $request->name;
-
-        $flight->save();
+        $user = $this->user->create($request->all());
+ 
+        return response()->json($user);
     }
 
     /**
