@@ -52,9 +52,9 @@ class UserAddressController extends Controller
      */
     public function show(User $user, $id)
     {
-        $address = $user->addresses()->find($id);
+        $address = $this->userAddress->findOrFail($id);
 
-        return response()->json($address);
+        return response()->json($address); 
     }
 
     /**
@@ -64,9 +64,17 @@ class UserAddressController extends Controller
      * @param  \App\Models\UserAddress  $userAddress
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserAddress $userAddress)
+    public function update(UserRequest $request, User $user, $id)
     {
-        //
+        $input = $request->all();
+        $address = $user->addresses()->find($id);
+        $address->name = $input['name'];
+        $address->address = $input['address'];
+        $address->state_id = $input['state_id'];
+        $address->city_id = $input['city_id'];
+        $address->save();
+
+        return response()->json($address);
     }
 
     /**
