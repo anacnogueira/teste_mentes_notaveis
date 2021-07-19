@@ -34,7 +34,9 @@ class CityController extends Controller
      */
     public function store(CityRequest $request)
     {
-        //
+        $city = $this->city->create($request->all());
+ 
+        return response()->json($city);
     }
 
     /**
