@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\State;
+use App\Http\Requests\StateRequest;
 
 class StateController extends Controller
 {
@@ -32,7 +33,7 @@ class StateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StateRequest $request)
     {
         //
     }

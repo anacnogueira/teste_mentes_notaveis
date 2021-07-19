@@ -5,9 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use App\Models\User;
 
-class UserAddressRequest extends FormRequest
+class StateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,12 +15,10 @@ class UserAddressRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = User::find($this->route('user'));
-
-        return $user;
+        return true;
     }
 
-    /**
+   /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -30,9 +27,7 @@ class UserAddressRequest extends FormRequest
     {
         return [            
             'name' => 'required',
-            'address' => 'required',
-            'state_id' => ['required', 'exists:states,id'],
-            'city_id' => ['required', 'exists:cities,id']
+            'uf' => ['required','size:2']
         ];
     }
 
@@ -40,7 +35,7 @@ class UserAddressRequest extends FormRequest
     {
         return [
             'required' => 'O campo é obrigatório.',
-            'exists' => 'O valor informado não é válido.',
+            'size' => 'O campo deve conter exatamente :size caracteres'
         ];
     }
 
