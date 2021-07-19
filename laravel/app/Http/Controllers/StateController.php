@@ -60,9 +60,14 @@ class StateController extends Controller
      * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, State $state)
+    public function update(StateRequest $request, State $state)
     {
-        //
+        $input = $request->all();
+        $state->name = $input['name'];
+        $state->uf = $input['uf'];
+        $state->save();
+
+        return response()->json($state);
     }
 
     /**
