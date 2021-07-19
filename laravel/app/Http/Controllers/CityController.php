@@ -47,7 +47,9 @@ class CityController extends Controller
      */
     public function show(City $city)
     {
-        //
+        $city = $this->city->findOrFail($city->id);
+
+        return response()->json($city); 
     }
 
     /**
