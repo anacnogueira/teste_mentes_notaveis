@@ -109,5 +109,16 @@ if ( $_SERVER['REQUEST_METHOD'] == 'PUT' && (isset($_REQUEST['id']) && !empty($_
     	}
 	}
 }
-	
+
 // DESTROY	
+if ( $_SERVER['REQUEST_METHOD'] == 'DELETE' && (isset($_REQUEST['id']) && !empty($_REQUEST['id'])) ) {
+	$user->id = isset($_REQUEST['id']) ? $_REQUEST['id'] : die();
+
+	if ( $user->destroy() ) {
+        http_response_code(200);
+         echo json_encode(array("message" => "User deleted."));
+	} else {
+   		http_response_code(503);
+        echo json_encode(array("message" => "Unable to delete user."));
+	}
+}	

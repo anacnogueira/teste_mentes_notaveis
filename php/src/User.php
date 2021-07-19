@@ -86,7 +86,6 @@ class User
                 WHERE id =:id";
         $stmt = $this->conn->prepare($query);
    
-        // bind values
         $stmt->bindParam(":id", $this->id);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":email", $this->email);
@@ -98,6 +97,22 @@ class User
     
         return false;
    	}
+
+   	public function destroy ()
+   	{
+   		$query = "DELETE FROM 
+                    " . $this->table_name . "
+                WHERE id =:id";
+        $stmt = $this->conn->prepare($query);
+   
+        $stmt->bindParam(":id", $this->id);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+    
+        return false;		
+	}	
         
 	public function validate($data)
 	{
