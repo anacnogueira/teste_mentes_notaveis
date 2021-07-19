@@ -48,7 +48,9 @@ class StateController extends Controller
      */
     public function show(State $state)
     {
-        //
+        $state = $this->state->findOrFail($state->id);
+
+        return response()->json($state);    
     }
 
     /**
