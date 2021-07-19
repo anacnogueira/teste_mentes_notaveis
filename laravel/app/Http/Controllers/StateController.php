@@ -78,6 +78,8 @@ class StateController extends Controller
      */
     public function destroy(State $state)
     {
-        //
+        $state->delete();
+
+        return response()->json($state);
     }
 }
