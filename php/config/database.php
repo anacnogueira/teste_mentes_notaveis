@@ -8,7 +8,7 @@ class Database
 
 	public function __construct()
 	{
-		$this->dotenv = new Dotenv(__DIR__."/../..");
+		$this->dotenv = new Dotenv(__DIR__."/../");
 		$this->dotenv->load(); 
 	}
 
