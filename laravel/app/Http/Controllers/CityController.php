@@ -61,7 +61,12 @@ class CityController extends Controller
      */
     public function update(CityRequest $request, City $city)
     {
-        //
+        $input = $request->all();
+        $city->name = $input['name'];
+        $city->state_id = $input['state_id'];
+        $city->save();
+
+        return response()->json($city);
     }
 
     /**
