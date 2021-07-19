@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StateController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserAddressController;
 
@@ -18,7 +19,8 @@ use App\Http\Controllers\UserAddressController;
 //To Do: 
 Route::apiResource('users', UserController::class);
 Route::apiResource('users.adresses', UserAddressController::class);
-//2. Address Routes
+Route::apiResource('states', StateController::class);
+
 //3. Cities Routes
 //4. States Routes
 
