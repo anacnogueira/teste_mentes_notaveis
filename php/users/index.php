@@ -12,7 +12,9 @@ $database = new Database();
 $db = $database->getConnection();
 
 $user = new User($db);
-$data = [];
+$data = !empty(file_get_contents("php://input")) ? 
+	sanitize(json_decode(file_get_contents("php://input"), true)) :
+	null;
 
 // LIST
 if ( $_SERVER['REQUEST_METHOD'] == 'GET' && !isset($_REQUEST['id']) ) {
@@ -45,7 +47,6 @@ if ( $_SERVER['REQUEST_METHOD'] == 'GET' && !isset($_REQUEST['id']) ) {
 
 // CREATE
 if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
-	$data = sanitize(json_decode(file_get_contents("php://input"), true));
 
 	//VALIDATION
 	$errors = $user->validate($data);
@@ -84,5 +85,29 @@ if ( $_SERVER['REQUEST_METHOD'] == 'GET' && (isset($_REQUEST['id']) && !empty($_
 	}	
 }
 
-// UPDTE
+// UPDATE
+if ( $_SERVER['REQUEST_METHOD'] == 'PUT' && (isset($_REQUEST['id']) && !empty($_REQUEST['id'])) ) {
+	$user->id = isset($_REQUEST['id']) ? $_REQUEST['id'] : die();
+
+	//VALIDATION
+	$errors = $user->validate($data);
+
+	if (count($errors) > 0) {
+		http_response_code(422);
+		echo json_encode($errors);
+	} else {
+		$user->name = $data['name'];
+    	$user->email = $data['email'];
+       	$user->updated_at = date('Y-m-d H:i:s');
+
+       	if ( $user->update() ) {
+            http_response_code(200);
+         	echo json_encode($user);
+    	} else {
+       		http_response_code(503);
+            echo json_encode(array("message" => "Unable to update user."));
+    	}
+	}
+}
+	
 // DESTROY	

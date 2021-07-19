@@ -73,12 +73,31 @@ class User
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $row;
+   	}
 
-        // $this->name = $row['name'];
-        // $this->email = $row['email'];
-        // $this->created_at = $row['created_at'];
-        // $this->updated_at = $row['updated_at'];
-    }
+   	public function update()
+   	{
+   		$query = "UPDATE 
+                    " . $this->table_name . "
+                SET
+                    name=:name, 
+                    email=:email,
+                    updated_at=:updated_at
+                WHERE id =:id";
+        $stmt = $this->conn->prepare($query);
+   
+        // bind values
+        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":name", $this->name);
+        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":updated_at", $this->updated_at);
+    
+        if ($stmt->execute()) {
+            return true;
+        }
+    
+        return false;
+   	}
         
 	public function validate($data)
 	{
@@ -97,10 +116,11 @@ class User
 		$query = "SELECT email
 			FROM
 		" . $this->table_name . " user
-		WHERE user.email = ?";
+		WHERE user.email = ? AND user.id != ?";
 
 		$stmt = $this->conn->prepare($query);
 		$stmt->bindParam(1, $data['email']);
+		$stmt->bindParam(2, $this->id);
 		$stmt->execute();
 		$num = $stmt->rowCount();
 		
