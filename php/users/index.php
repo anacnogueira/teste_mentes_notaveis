@@ -70,5 +70,19 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 	}
 }
 // READ
+if ( $_SERVER['REQUEST_METHOD'] == 'GET' && (isset($_REQUEST['id']) && !empty($_REQUEST['id'])) ) {
+	$user->id = isset($_REQUEST['id']) ? $_REQUEST['id'] : die();
+
+	$user = $user->read();	
+
+	if ($user) {
+		http_response_code(200);
+		echo json_encode($user);
+	} else {
+		http_response_code(404);
+		echo json_encode(array("message" => "User does not exist."));
+	}	
+}
+
 // UPDTE
 // DESTROY	

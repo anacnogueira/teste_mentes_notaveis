@@ -46,11 +46,38 @@ class User
         $stmt->bindParam(":created_at", $this->created_at);
         $stmt->bindParam(":updated_at", $this->updated_at);
     
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
         }
     
         return false;
+    }
+
+    public function read()
+    {
+    	$query = "SELECT
+            id, name, email, created_at, updated_at
+                FROM
+                    " . $this->table_name . " user                    
+                WHERE
+                    user.id = ?
+                LIMIT
+                    0,1";
+    
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $this->id);
+
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row;
+
+        // $this->name = $row['name'];
+        // $this->email = $row['email'];
+        // $this->created_at = $row['created_at'];
+        // $this->updated_at = $row['updated_at'];
     }
         
 	public function validate($data)
