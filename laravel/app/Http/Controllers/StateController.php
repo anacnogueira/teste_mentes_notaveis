@@ -35,7 +35,9 @@ class StateController extends Controller
      */
     public function store(StateRequest $request)
     {
-        //
+        $state = $this->state->create($request->all());
+ 
+        return response()->json($state);
     }
 
     /**
