@@ -5,6 +5,7 @@ header("Content-Type: application/json; charset=UTF-8");
 
 include_once '../core.php';
 include_once '../config/database.php';
+include_once '../config/sanitize.php';
 include_once '../src/User.php';
 
 $database = new Database();
@@ -43,6 +44,17 @@ if ( $_SERVER['REQUEST_METHOD'] == 'GET' && !isset($_REQUEST['id']) ) {
 }
 
 // CREATE
+if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+	$data = sanitize($_POST);
+	$errors = $user->validate($data);
+
+	if (count($errors) > 0) {
+		http_response_code(422);
+		echo json_encode($errors);
+	} else {
+		
+	}
+}
 // READ
 // UPDTE
 // DESTROY	
