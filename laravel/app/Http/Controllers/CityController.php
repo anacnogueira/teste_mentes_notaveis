@@ -81,4 +81,22 @@ class CityController extends Controller
 
         return response()->json($city);
     }
+
+    /**
+     * Return Users by City
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function usersByCity()
+    {
+       $cities = $this->city
+        ->select(['name'])
+        ->selectRaw("(SELECT 
+            COUNT(*)
+            FROM users
+            WHERE id IN (SELECT user_id FROM user_addresses WHERE city_id = cities.id AND user_id = users.id )) usuarios")
+        ->get();
+
+       return response()->json($cities);
+    }
 }

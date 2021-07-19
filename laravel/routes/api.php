@@ -17,10 +17,11 @@ use App\Http\Controllers\UserAddressController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-//To Do: 
+
 Route::apiResource('users', UserController::class);
 Route::apiResource('users.addresses', UserAddressController::class);
 Route::apiResource('states', StateController::class);
+Route::get('/cities/users-by-city', [CityController::class, 'usersByCity']);
 Route::apiResource('cities', CityController::class);
 
 
