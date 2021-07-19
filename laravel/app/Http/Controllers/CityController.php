@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
-use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
+    protected $city;
+
+    public function __construct(City $city)
+    {
+        $this->city = $city;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,9 @@ class CityController extends Controller
      */
     public function index()
     {
-        //
+        $cities = $this->city->all();
+
+        return response()->json($cities);
     }
 
     /**
