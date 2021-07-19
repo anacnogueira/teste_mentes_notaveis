@@ -29,6 +29,30 @@ class User
 		return $stmt;
 	}
 
+	function create()
+	{
+        $query = "INSERT INTO
+                    " . $this->table_name . "
+                SET
+                    name=:name, 
+                    email=:email,
+                    created_at=:created_at,
+                    updated_at=:updated_at";
+        $stmt = $this->conn->prepare($query);
+   
+        // bind values
+        $stmt->bindParam(":name", $this->name);
+        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":created_at", $this->created_at);
+        $stmt->bindParam(":updated_at", $this->updated_at);
+    
+        if($stmt->execute()){
+            return true;
+        }
+    
+        return false;
+    }
+        
 	public function validate($data)
 	{
 		$errors = [];

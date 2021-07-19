@@ -45,14 +45,28 @@ if ( $_SERVER['REQUEST_METHOD'] == 'GET' && !isset($_REQUEST['id']) ) {
 
 // CREATE
 if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
-	$data = sanitize($_POST);
+	$data = sanitize(json_decode(file_get_contents("php://input"), true));
+
+	//VALIDATION
 	$errors = $user->validate($data);
 
 	if (count($errors) > 0) {
 		http_response_code(422);
 		echo json_encode($errors);
 	} else {
-		
+		$user->name = $data['name'];
+    	$user->email = $data['email'];
+       	$user->created_at = date('Y-m-d H:i:s');
+       	$user->updated_at = date('Y-m-d H:i:s');
+
+       	if ( $user->create() ) {
+       		$user->id = $db->lastInsertId();
+            http_response_code(201);
+         	echo json_encode($user);
+    	} else {
+       		http_response_code(503);
+            echo json_encode(array("message" => "Unable to create user."));
+    	}
 	}
 }
 // READ
