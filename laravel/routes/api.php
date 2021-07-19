@@ -19,7 +19,7 @@ use App\Http\Controllers\UserAddressController;
 */
 //To Do: 
 Route::apiResource('users', UserController::class);
-Route::apiResource('users.adresses', UserAddressController::class);
+Route::apiResource('users.addresses', UserAddressController::class);
 Route::apiResource('states', StateController::class);
 Route::apiResource('cities', CityController::class);
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserAddress;
 use App\Http\Requests\UserAddressRequest;
+use App\Http\Resources\UserAddressResource;
 
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ class UserAddressController extends Controller
     {
         $addresses = $this->user->find($user->id)->addresses;
 
-        return response()->json($addresses);
+        return UserAddressResource::collection($addresses);
     }
 
     /**
