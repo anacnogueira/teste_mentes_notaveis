@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class City extends Model
 {
-    public $timestamps = false;
+   public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -15,14 +15,11 @@ class State extends Model
      */
     protected $fillable = [
         'name',
-        'uf',
-    ];   
+        'state_id',
+    ];    
 
-    /**
-     * Get the cities for the state.
-     */
-    public function cities()
+    public function state()
     {
-        return $this->hasMany(City::class);
-    } 
+        return $this->belongsTo(State::class);
+    }
 }
