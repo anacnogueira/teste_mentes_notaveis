@@ -82,4 +82,22 @@ class StateController extends Controller
 
         return response()->json($state);
     }
+
+    /**
+     * Return Users by State
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function usersByState()
+    {
+       $states = $this->state
+        ->select(['name'])
+        ->selectRaw("(SELECT 
+            COUNT(*)
+            FROM users
+            WHERE id IN (SELECT user_id FROM user_addresses WHERE state_id = states.id AND user_id = users.id )) usuarios")
+        ->get();
+
+       return response()->json($states);
+    }
 }

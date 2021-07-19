@@ -20,6 +20,7 @@ use App\Http\Controllers\UserAddressController;
 
 Route::apiResource('users', UserController::class);
 Route::apiResource('users.addresses', UserAddressController::class);
+Route::get('/states/users-by-state', [StateController::class, 'usersByState']);
 Route::apiResource('states', StateController::class);
 Route::get('/cities/users-by-city', [CityController::class, 'usersByCity']);
 Route::apiResource('cities', CityController::class);
