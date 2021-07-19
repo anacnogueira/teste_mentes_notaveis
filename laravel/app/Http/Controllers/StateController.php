@@ -6,6 +6,14 @@ use App\Models\State;
 
 class StateController extends Controller
 {
+    
+    protected $state;
+
+    public function __construct(State $state)
+    {
+        $this->state = $state;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +21,9 @@ class StateController extends Controller
      */
     public function index()
     {
-        //
+        $states = $this->state->all();
+
+        return response()->json($states);
     }
 
     /**

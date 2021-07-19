@@ -13,6 +13,7 @@ class UserController extends Controller
     {
         $this->user = $user;
     }
+    
     /**
      * Display a listing of the resource.
      *
